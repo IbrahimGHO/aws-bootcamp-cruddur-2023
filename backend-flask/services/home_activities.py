@@ -1,10 +1,20 @@
 from datetime import datetime, timedelta, timezone
 from opentelemetry import trace
+import watchtower
+import logging
+from time import strftime
 
-tracer = trace.get_tracer("home.activities")
 
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
 class HomeActivities:
   def run():
+    LOGGER.info("Hello from Home Activities ")
+
     with tracer.start_as_current_span("home-activites-mock-data"):
       span = trace.get_current_span()
       now = datetime.now(timezone.utc).astimezone()
