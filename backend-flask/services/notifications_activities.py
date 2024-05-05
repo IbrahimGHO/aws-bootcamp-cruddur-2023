@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta, timezone
+from aws_xray_sdk.core import xray_recorder
+from flask import request
+
 class NotificationsActivities:
   def run():
+    segment = xray_recorder.begin_segment('Notifications_Activities')
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
@@ -23,4 +27,17 @@ class NotificationsActivities:
       }],
     }
     ]
+    
+    # xray ---
+    subsegment = xray_recorder.begin_subsegment('mock-data')
+    dict = {
+      "now": now.isoformat(),
+      "results-size": results['uuid'],
+      "userIp":request.remote_addr
+    }
+    subsegment.put_metadata('key', dict, 'namespace')
+    subsegment.put_annotation('key', 'value')
+    xray_recorder.end_subsegment()
+  # Close the segment
+    xray_recorder.end_segment()
     return results
