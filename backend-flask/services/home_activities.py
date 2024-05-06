@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta, timezone
 from opentelemetry import trace
-
+from flask import request
 tracer = trace.get_tracer("home.activities")
 
 class HomeActivities:
-  def run(logger):
-    logger.info("HomeActivities")
-    with tracer.start_as_current_span("home-activites-mock-data"):
+  def run():
+  #def run(logger):
+    #logger.info("hiiiii form home Activities your ip  "+ request.remote_addr)
+    with tracer.start_as_current_span("home-activities-mock-data"):
       span = trace.get_current_span()
       now = datetime.now(timezone.utc).astimezone()
       span.set_attribute("app.now", now.isoformat())
