@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 
 
-
+import { Amplify } from 'aws-amplify';
 
 Amplify.configure({
   "AWS_PROJECT_REGION": process.env.REACT_APP_AWS_PROJECT_REGION,
@@ -30,7 +30,7 @@ Amplify.configure({
     // identityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID, // REQUIRED - Amazon Cognito Identity Pool ID
     region: process.env.REACT_AWS_PROJECT_REGION,           // REQUIRED - Amazon Cognito Region
     userPoolId: process.env.REACT_APP_AWS_USER_POOLS_ID,         // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolWebClientId: process.env.REACT_APP_AWS_USER_POOLS_WEB_CLIENT_ID,   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID,   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
   }
 });
 const router = createBrowserRouter([
