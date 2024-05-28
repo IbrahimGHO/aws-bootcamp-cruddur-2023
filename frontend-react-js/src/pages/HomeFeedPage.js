@@ -9,7 +9,7 @@ import ReplyForm from '../components/ReplyForm';
 
 // [TODO] Authenication
 
-const { Auth } = require('aws-amplify');
+import Auth from 'aws-amplify';
 
 
 
